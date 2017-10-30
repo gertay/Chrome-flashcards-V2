@@ -18,7 +18,7 @@ Program to unzip zipped folders.
 
 Running the tests
 
-Tests are still to be designed
+Code Climate has been added for testing 
 
 /*Explain how to run the automated tests for this system
 
