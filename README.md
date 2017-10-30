@@ -1,1 +1,2 @@
-Chrome-flashcards-V2
+# Chrome-flashcards
+Chrome flashcard extension
