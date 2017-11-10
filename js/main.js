@@ -1,19 +1,18 @@
 
+// Fisher-Yates shuffle
 Array.prototype.shuffle = function() {
 
-    var i = this.length,
-        rand, temp;
-    while (--i > 0) {
-        rand = Math.floor(Math.random() * (i + 1));
-        temp = this[rand];
-        this[rand] = this[i];
-        this[i] = temp;
-    }
+	var i = this.length, rand, temp;
+	while (--i > 0) {
+		rand = Math.floor(Math.random() * (i + 1));
+		temp = this[rand];
+		this[rand] = this[i];
+		this[i] = temp;
+	}
 
-    return this;
+	return this;
 }
 
-// List of Java tips
 var tipsList = [
 		"<span class='code'>GIGO:</span><br>If you put <span class='code'>G</span> arbage <span class='code'>I</span>n you will get <span class='code'>G</span>arbage <span class='code'>O</span>ut!",
 
@@ -37,46 +36,55 @@ var tipsList = [
 
 ];
 
-// Tip Limit counter (currently only 12 tips stored)
 var tipLimit = tipsList.length;
+var result = tipLimit.shuffle;
 
+function startNumber(){
+	var tip = tipsList[result.length];
+	var tipElement = document.querySelector('.j-tip');
+	var tipLimitCount = document.querySelector('.tip-limit-count');
 
+	tipElement.innerHTML = tip;
+	tipLimitCount.innerHTML = tipLimit;
+}
 
 // Generate a number
-var result = tipsList.shuffle();
+function generateNumber() {
+	return Math.floor(Math.random() * tipsList.length);
+}
 
 // Generate a tip:
 // 1. Get random number from generateNumber()
 // 2. Use the random number to get the tip from the array
 // 3. Show the tip
-//
-function generateTip() {
-    var tip = tipsList[0];
-    var tipElement = document.querySelector('.j-tip');
-    var tipLimitCount = document.querySelector('.tip-limit-count');
 
-    tipElement.innerHTML = tip++;
-    tipLimitCount.innerHTML = tipLimit;
+function generateTip() {
+	var tip = tipsList[generateNumber()];
+	var tipElement = document.querySelector('.j-tip');
+	var tipLimitCount = document.querySelector('.tip-limit-count');
+
+	tipElement.innerHTML = tip;
+	tipLimitCount.innerHTML = tipLimit;
 }
 
 // Select the tip button
 function onTipButtonClick() {
-    var tipButton = document.querySelector('.tip-button');
-// Add a click event listener
-    tipButton.addEventListener('click', function () {
-// subtract 1 from the tipLimit when the button is clicked	
-        tipLimit = tipLimit - 1;
-// if the tipLimit is above or equal to 0 then it will generate a new tip	
-        if (tipLimit >= 0) {
-            generateTip();
-// if the tipLimit is not 0 or above then change the button and display the new button and text
-            if (tipLimit === 0) {
-                tipButton.innerHTML = "All done, try another tab!";
-                tipButton.classList.add('disabled');
-            }
-        }
-        console.log("clocked");
-    });
+	var tipButton = document.querySelector('.tip-button');
+	// Add a click event listener
+	tipButton.addEventListener('click', function() {
+		// subtract 1 from the tipLimit when the button is clicked
+		tipLimit = tipLimit - 1;
+		// if the tipLimit is above or equal to 0 then it will generate a new tip
+		if (tipLimit >= 0) {
+			generateTip();
+			// if the tipLimit is not 0 or above then change the button and display the new button and text
+			if (tipLimit === 0) {
+				tipButton.innerHTML = "That's them done, try another tab!";
+				tipButton.classList.add('disabled');
+			}
+		}
+		console.log("clocked");
+	});
 }
 
 onTipButtonClick();
